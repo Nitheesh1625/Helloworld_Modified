@@ -131,13 +131,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8be18de09a56b60ed0edf84bc9df007e30040691af7acd1c41874faac5895bfb"
 
 [[package]]
-name = "hello_world"
-version = "0.1.0"
-dependencies = [
- "linux-kernel-module",
-]
-
-[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -224,6 +217,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77997c53ae6edd6d187fec07ec41b207063b5ee6f33680e9fa86d405cdd313d4"
 dependencies = [
  "unicode-xid",
+]
+
+[[package]]
+name = "psmouse"
+version = "0.1.0"
+dependencies = [
+ "linux-kernel-module",
 ]
 
 [[package]]

@@ -6,30 +6,9 @@ use std::env;
 use std::path::PathBuf;
 use std::process::Command;
 
-const INCLUDED_TYPES: &[&str] = &["file_operations", "ctl_table", "spinlock_t", "mutex", "usb_driver", "usb_device_id", "driver_info","input_dev","psmouse","psmouse_ret_t","x86_hypervisor_type","bool"];
+const INCLUDED_TYPES: &[&str] = &["input_dev","psmouse","psmouse_ret_t","x86_hypervisor_type","bool"];
 
 const INCLUDED_FUNCTIONS: &[&str] = &[
-    "__register_chrdev",
-    "__unregister_chrdev",
-    "_copy_to_user",
-    "register_sysctl",
-    "unregister_sysctl_table",
-    "proc_dointvec_minmax",
-    "spin_lock",
-    "usbnet_probe",
-    "usbnet_disconnect",
-    "usb_register_driver",
-    "usb_deregister",
-    "usbnet_get_endpoints",
-    "of_get_mac_address",
-    "skb_pull",
-    "skb_push",
-    "skb_trim",
-    "skb_clone",
-    "usbnet_skb_return",
-    "usbnet_read_cmd",
-    "call_usermodehelper",
-    "schedule",
     "test_bit",
     "psmouse_err",
     "psmouse_warn",
@@ -48,11 +27,9 @@ const INCLUDED_FUNCTIONS: &[&str] = &[
     "kzalloc",
     "snprintf",
     "ARRAY_SIZE"
-    //"__purge_module",
-    //"__rust_delete_module",
 ];
 
-const INCLUDED_VARS: &[&str] = &["__this_module", "THIS_MODULE",
+const INCLUDED_VARS: &[&str] = &[
     "__asm__",
     "ENXIO",
     "x86_hyper_type",
@@ -98,11 +75,7 @@ fn main() {
         .arg("clean");
 
     println!("get output:{}", output);
-    // These three arguments are not supported by clang
-    // output = output.replace("-mapcs", "");
-    // output = output.replace("-mno-sched-prolog", "");
-    // output = output.replace("-mno-thumb-interwork", "");
-
+   
     for arg in shlex::split(&output).unwrap() {
         builder = builder.clang_arg(arg.to_string());
     }
