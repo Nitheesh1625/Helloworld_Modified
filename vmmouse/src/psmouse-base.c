@@ -25,7 +25,7 @@
 #include <linux/mutex.h>
 
 #include "psmouse.h"
-#include "vmmouse.h"
+#include "lib.h"
 #define DRIVER_DESC	"PS/2 mouse driver"
 
 MODULE_AUTHOR("Vojtech Pavlik <vojtech@suse.cz>");
@@ -1056,7 +1056,6 @@ static int psmouse_connect(struct serio *serio, struct serio_driver *drv)
 	struct psmouse *psmouse, *parent = NULL;
 	struct input_dev *input_dev;
 	int retval = 0, error = -ENOMEM;
-
 	mutex_lock(&psmouse_mutex);
 
 	/*
@@ -1102,9 +1101,9 @@ static int psmouse_connect(struct serio *serio, struct serio_driver *drv)
 	psmouse->smartscroll = psmouse_smartscroll;
 
 	psmouse_switch_protocol(psmouse, NULL);
-
 	if (!psmouse->protocol->smbus_companion) {
 		psmouse_set_state(psmouse, PSMOUSE_CMD_MODE);
+		error=vmmouse_init(psmouse);
 		psmouse_initialize(psmouse);
 
 		error = input_register_device(input_dev);
@@ -1529,7 +1528,6 @@ static int __init psmouse_init(void)
 		err = -ENOMEM;
 		goto err_smbus_exit;
 	}
-
 	err = serio_register_driver(&psmouse_drv);
 	if (err)
 		goto err_destroy_wq;

@@ -188,9 +188,10 @@ pub extern "C" fn vmmouse_detect(
 #[no_mangle]
 pub fn vmmouse_disconect(psmouse: *mut bindings::psmouse) {
     //	vmmouse_diable(&mut psmouse);
-    unsafe {
+/*    unsafe {
         psmouse_reset_wrapper(psmouse);
-    }
+    }*/
+    println!("Disconnect");
 }
 
 #[no_mangle]
