@@ -48,6 +48,11 @@ void input_report_key_wrapper(struct input_dev *dev, unsigned int code, int valu
     input_report_key(dev, code, value);
 }
 
-void psmouse_dbg_wrapper(struct psmouse *psmouse, char string[100]) {
-    psmouse_dbg(psmouse, string);
+void psmouse_dbg_wrapper(struct psmouse *psmouse) {
+    psmouse_dbg(psmouse, "Hypervisor is not supported");
 }
+
+void psmouse_reset_wrapper(struct psmouse *psmouse) {
+    psmouse_reset(psmouse);
+}
+
